@@ -1,0 +1,196 @@
+{
+  "ar": {
+    "app": {
+      "name": "LocalShare",
+      "tagline": "مشاركة الملفات عبر الشبكة المحلية",
+      "version": "الإصدار"
+    },
+    "nav": {
+      "home": "الرئيسية",
+      "devices": "الأجهزة",
+      "files": "الملفات",
+      "transfers": "النقل",
+      "downloads": "التنزيلات",
+      "settings": "الإعدادات"
+    },
+    "home": {
+      "welcome": "مرحباً بك في",
+      "subtitle": "شارك ملفاتك بسرعة وأمان عبر شبكتك المحلية",
+      "searchPlaceholder": "ابحث عن ملفات أو أجهزة...",
+      "uploadFiles": "رفع ملفات",
+      "devices": "الأجهزة",
+      "files": "الملفات",
+      "connectedDevices": "أجهزة متصلة",
+      "sharedFiles": "ملفات مشتركة",
+      "transferSpeed": "سرعة النقل",
+      "serverUrl": "رابط الخادم",
+      "copyUrl": "نسخ الرابط",
+      "copied": "تم النسخ!",
+      "shareThisUrl": "شارك هذا الرابط مع الأجهزة الأخرى",
+      "clickToCopy": "انقر للنسخ"
+    },
+    "devices": {
+      "title": "الأجهزة المتصلة",
+      "noDevices": "لا توجد أجهزة متصلة حالياً",
+      "shareUrl": "شارك الرابط مع أجهزة أخرى على نفس الشبكة",
+      "online": "متصل",
+      "refresh": "تحديث",
+      "copyIp": "نسخ IP"
+    },
+    "files": {
+      "title": "الملفات المشتركة",
+      "noFiles": "لا توجد ملفات",
+      "upload": "رفع",
+      "download": "تحميل",
+      "delete": "حذف",
+      "preview": "معاينة",
+      "copyLink": "نسخ الرابط",
+      "linkCopied": "تم نسخ رابط الملف!",
+      "confirmDelete": "هل تريد حذف هذا الملف؟"
+    },
+    "transfers": {
+      "title": "عمليات النقل",
+      "noTransfers": "لا توجد عمليات نقل نشطة",
+      "clearCompleted": "مسح المكتملة",
+      "uploading": "جاري الرفع...",
+      "completed": "مكتمل",
+      "failed": "فشل"
+    },
+    "downloads": {
+      "title": "التنزيلات",
+      "noDownloads": "لا توجد تنزيلات",
+      "downloading": "جاري التنزيل...",
+      "completed": "مكتمل",
+      "failed": "فشل",
+      "paused": "متوقف",
+      "clearCompleted": "مسح المكتملة",
+      "clearAll": "مسح الكل",
+      "openFile": "فتح الملف",
+      "retry": "إعادة المحاولة",
+      "cancel": "إلغاء",
+      "bytesReceived": "تم استلام",
+      "of": "من",
+      "speed": "السرعة"
+    },
+    "preview": {
+      "title": "معاينة الملف",
+      "close": "إغلاق",
+      "unsupported": "لا يمكن معاينة هذا النوع من الملفات",
+      "download": "تحميل الملف",
+      "copyLink": "نسخ الرابط"
+    },
+    "status": {
+      "connecting": "جاري الاتصال...",
+      "connected": "متصل",
+      "disconnected": "غير متصل"
+    },
+    "actions": {
+      "cancel": "إلغاء",
+      "close": "إغلاق",
+      "save": "حفظ",
+      "language": "اللغة",
+      "copy": "نسخ",
+      "copied": "تم النسخ!"
+    },
+    "footer": {
+      "developedBy": "تم التطوير بواسطة"
+    }
+  },
+  "en": {
+    "app": {
+      "name": "LocalShare",
+      "tagline": "Local Network File Sharing",
+      "version": "Version"
+    },
+    "nav": {
+      "home": "Home",
+      "devices": "Devices",
+      "files": "Files",
+      "transfers": "Transfers",
+      "downloads": "Downloads",
+      "settings": "Settings"
+    },
+    "home": {
+      "welcome": "Welcome to",
+      "subtitle": "Share your files quickly and securely across your local network",
+      "searchPlaceholder": "Search files or devices...",
+      "uploadFiles": "Upload Files",
+      "devices": "Devices",
+      "files": "Files",
+      "connectedDevices": "Connected Devices",
+      "sharedFiles": "Shared Files",
+      "transferSpeed": "Transfer Speed",
+      "serverUrl": "Server URL",
+      "copyUrl": "Copy URL",
+      "copied": "Copied!",
+      "shareThisUrl": "Share this URL with other devices",
+      "clickToCopy": "Click to copy"
+    },
+    "devices": {
+      "title": "Connected Devices",
+      "noDevices": "No devices connected yet",
+      "shareUrl": "Share the URL with other devices on your network",
+      "online": "Online",
+      "refresh": "Refresh",
+      "copyIp": "Copy IP"
+    },
+    "files": {
+      "title": "Shared Files",
+      "noFiles": "No files yet",
+      "upload": "Upload",
+      "download": "Download",
+      "delete": "Delete",
+      "preview": "Preview",
+      "copyLink": "Copy Link",
+      "linkCopied": "File link copied!",
+      "confirmDelete": "Are you sure you want to delete this file?"
+    },
+    "transfers": {
+      "title": "Active Transfers",
+      "noTransfers": "No active transfers",
+      "clearCompleted": "Clear Completed",
+      "uploading": "Uploading...",
+      "completed": "Completed",
+      "failed": "Failed"
+    },
+    "downloads": {
+      "title": "Downloads",
+      "noDownloads": "No downloads yet",
+      "downloading": "Downloading...",
+      "completed": "Completed",
+      "failed": "Failed",
+      "paused": "Paused",
+      "clearCompleted": "Clear Completed",
+      "clearAll": "Clear All",
+      "openFile": "Open File",
+      "retry": "Retry",
+      "cancel": "Cancel",
+      "bytesReceived": "Received",
+      "of": "of",
+      "speed": "Speed"
+    },
+    "preview": {
+      "title": "File Preview",
+      "close": "Close",
+      "unsupported": "This file type cannot be previewed",
+      "download": "Download file",
+      "copyLink": "Copy Link"
+    },
+    "status": {
+      "connecting": "Connecting...",
+      "connected": "Connected",
+      "disconnected": "Disconnected"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "close": "Close",
+      "save": "Save",
+      "language": "Language",
+      "copy": "Copy",
+      "copied": "Copied!"
+    },
+    "footer": {
+      "developedBy": "Developed by"
+    }
+  }
+}

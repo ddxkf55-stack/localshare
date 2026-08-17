@@ -1,0 +1,28 @@
+{
+  "name": "localshare",
+  "version": "4.0.0",
+  "description": "Local network file sharing - Startpage Style",
+  "main": "main.js",
+  "scripts": {
+    "start": "node server.js",
+    "electron": "electron .",
+    "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "web": "node server.js",
+    "build": "electron-builder"
+  },
+  "author": "mouad zerk kennedy",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.0",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0",
+    "electron-builder": "^24.9.1"
+  }
+}

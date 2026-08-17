@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>LocalShare</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="titlebar">
+    <div class="titlebar-left">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        <span data-i18n="app.name">LocalShare</span>
+      </div>
+    </div>
+    <div class="titlebar-center">
+      <div class="connection-status" id="connectionStatus">
+        <span class="status-dot"></span>
+        <span class="status-text" data-i18n="status.connecting">Connecting...</span>
+      </div>
+    </div>
+    <div class="titlebar-right">
+      <div class="language-selector">
+        <button class="lang-btn" id="langToggle" title="Language">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span id="currentLang">AR</span>
+        </button>
+      </div>
+      <button class="icon-btn" id="refreshBtn" title="Refresh">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <nav class="nav-menu">
+        <a class="nav-item active" data-view="home">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span data-i18n="nav.home">Home</span>
+        </a>
+        <a class="nav-item" data-view="devices">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span data-i18n="nav.devices">Devices</span>
+          <span class="badge" id="deviceCount">0</span>
+        </a>
+        <a class="nav-item" data-view="files">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span data-i18n="nav.files">Files</span>
+        </a>
+        <a class="nav-item" data-view="transfers">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span data-i18n="nav.transfers">Transfers</span>
+          <span class="badge" id="transferCount">0</span>
+        </a>
+        <a class="nav-item" data-view="downloads">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span data-i18n="nav.downloads">Downloads</span>
+          <span class="badge" id="downloadCount">0</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="my-device">
+          <div class="device-avatar" id="myAvatar">M</div>
+          <div class="device-info">
+            <div class="device-name" id="myDeviceName">My Device</div>
+            <div class="device-ip" id="myDeviceIP">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- Home View -->
+      <section class="view active" id="view-home">
+        <div class="hero">
+          <h1 class="hero-title">
+            <span data-i18n="home.welcome">Welcome to</span>
+            <span class="gradient-text">LocalShare</span>
+          </h1>
+          <p class="hero-subtitle" data-i18n="home.subtitle">Share your files quickly and securely</p>
+          
+          <!-- Server URL Box with Copy -->
+          <div class="server-url-box" id="serverUrlBox">
+            <div class="url-display">
+              <svg class="url-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+              <span class="url-text" id="serverUrlText">Loading...</span>
+            </div>
+            <button class="copy-btn" id="copyServerUrlBtn" title="Copy URL">
+              <svg class="copy-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span class="copy-text" data-i18n="home.copyUrl">Copy URL</span>
+            </button>
+          </div>
+          <p class="share-hint" data-i18n="home.shareThisUrl">Share this URL with other devices</p>
+          
+          <!-- Search Box -->
+          <div class="search-container">
+            <div class="search-box">
+              <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="text" id="searchInput" data-i18n-placeholder="home.searchPlaceholder" placeholder="Search files or devices...">
+              <kbd class="search-kbd">Ctrl K</kbd>
+            </div>
+            <div class="search-suggestions" id="searchSuggestions"></div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="quick-actions">
+            <button class="action-btn yellow" id="uploadBtn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <span data-i18n="home.uploadFiles">Upload Files</span>
+            </button>
+            <button class="action-btn orange" onclick="switchView('devices')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              </svg>
+              <span data-i18n="home.devices">Devices</span>
+            </button>
+            <button class="action-btn green" onclick="switchView('files')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <span data-i18n="home.files">Files</span>
+            </button>
+            <button class="action-btn blue" onclick="switchView('downloads')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span data-i18n="nav.downloads">Downloads</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon yellow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value" id="statDevices">0</div>
+              <div class="stat-label" data-i18n="home.connectedDevices">Connected Devices</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value" id="statFiles">0</div>
+              <div class="stat-label" data-i18n="home.sharedFiles">Shared Files</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value" id="statSpeed">0 MB/s</div>
+              <div class="stat-label" data-i18n="home.transferSpeed">Transfer Speed</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value" id="statDownloads">0</div>
+              <div class="stat-label" data-i18n="nav.downloads">Downloads</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Devices View -->
+      <section class="view" id="view-devices">
+        <div class="view-header">
+          <h2 data-i18n="devices.title">Connected Devices</h2>
+          <button class="btn-icon" onclick="refreshDevices()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"/>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+          </button>
+        </div>
+        <div class="devices-grid" id="devicesGrid">
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            <p data-i18n="devices.noDevices">No devices connected yet</p>
+            <small data-i18n="devices.shareUrl">Share the URL with other devices</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Files View -->
+      <section class="view" id="view-files">
+        <div class="view-header">
+          <h2 data-i18n="files.title">Shared Files</h2>
+          <button class="btn-primary yellow" id="uploadBtn2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span data-i18n="files.upload">Upload</span>
+          </button>
+        </div>
+        <div class="files-list" id="filesList">
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <p data-i18n="files.noFiles">No files yet</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transfers View -->
+      <section class="view" id="view-transfers">
+        <div class="view-header">
+          <h2 data-i18n="transfers.title">Active Transfers</h2>
+          <button class="btn-icon" onclick="clearCompleted()" data-i18n="transfers.clearCompleted">Clear Completed</button>
+        </div>
+        <div class="transfers-list" id="transfersList">
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <p data-i18n="transfers.noTransfers">No active transfers</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Downloads View -->
+      <section class="view" id="view-downloads">
+        <div class="view-header">
+          <h2 data-i18n="downloads.title">Downloads</h2>
+          <div class="view-actions">
+            <button class="btn-icon" onclick="clearCompletedDownloads()" data-i18n="downloads.clearCompleted">Clear Completed</button>
+            <button class="btn-icon danger" onclick="clearAllDownloads()" data-i18n="downloads.clearAll">Clear All</button>
+          </div>
+        </div>
+        <div class="downloads-list" id="downloadsList">
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <p data-i18n="downloads.noDownloads">No downloads yet</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Transfer Bar (Bottom) -->
+  <footer class="transfer-bar" id="transferBar" style="display: none;">
+    <div class="tb-info">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+      </svg>
+      <div class="tb-text">
+        <div class="tb-filename" id="tbFilename">filename.ext</div>
+        <div class="tb-meta" id="tbMeta">Uploading...</div>
+      </div>
+    </div>
+    <div class="tb-progress">
+      <div class="progress-bar">
+        <div class="progress-fill" id="tbProgressFill" style="width: 0%"></div>
+      </div>
+      <div class="progress-stats">
+        <span id="tbPercent">0%</span>
+        <span id="tbSpeed">0 MB/s</span>
+      </div>
+    </div>
+    <button class="tb-action" id="tbCancel">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </footer>
+
+  <!-- Preview Modal -->
+  <div class="preview-modal" id="previewModal" style="display: none;">
+    <div class="preview-overlay" id="previewOverlay"></div>
+    <div class="preview-content">
+      <div class="preview-header">
+        <h3 class="preview-title" id="previewTitle">File Preview</h3>
+        <button class="preview-close" id="previewClose">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="preview-body" id="previewBody">
+      </div>
+      <div class="preview-footer" id="previewFooter">
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Hidden File Input -->
+  <input type="file" id="fileInput" multiple style="display: none;">
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
